@@ -2,11 +2,12 @@ name: Rust CI
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   build:
@@ -14,7 +15,9 @@ jobs:
 
     steps:
       - name: Setup Rust
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: sudo apt-get install -y libatk1.0-dev
       - name: Install cargo-audit
         run: cargo install cargo-audit
       - name: Build
